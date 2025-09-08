@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuarios - UbiX</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <span class="logo">UbiX</span>
+    <a href="#" class="logout">Cerrar sesión</a>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <button class="sidebar-btn selected" id="go-usuarios">Usuario</button>
+      <button class="sidebar-btn" id="go-config">Configuraciones de la plataforma</button>
+      <button class="sidebar-btn" id="go-reportes">Reportes y estadísticas</button>
+    </aside>
+
+    <main class="main-content">
+      <h1>Usuarios</h1>
+      <button class="add-user">+ Añadir usuario</button>
+      <h2>Ver todos los Usuarios</h2>
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>Nombre de usuario</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="user-list">
+          <!-- Las filas se llenarán dinámicamente -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Modal para agregar/editar usuario -->
+  <div id="user-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center; z-index:1000;">
+    <div style="background:white; padding:30px 40px; border-radius:8px; min-width:250px; text-align:center; position:relative;">
+      <span id="modal-title" style="font-size:18px;">Añadir usuario</span>
+      <br><br>
+      <label>Usuario:</label>
+      <input id="modal-username" type="text" class="celeste" style="margin-bottom:10px;" autocomplete="off"><br>
+      <label>Contraseña:</label>
+      <input id="modal-password" type="password" class="celeste" style="margin-bottom:10px;"><br>
+      <label>Rol:</label>
+      <select id="modal-rol" class="celeste" style="margin-bottom:10px;">
+        <option value="Administrador">Administrador</option>
+        <option value="Usuario">Usuario</option>
+        <option value="Conductor">Conductor</option>
+      </select>
+      <br>
+      <div id="ruta-container" style="display:none;">
+        <label>Ruta:</label>
+        <select id="modal-ruta" class="celeste" style="margin-bottom:10px;">
+          <option value="Ruta 1">Ruta 1</option>
+          <option value="Ruta 2">Ruta 2</option>
+          <option value="Ruta 3">Ruta 3</option>
+          <option value="Ruta 4">Ruta 4</option>
+          <option value="Ruta 5">Ruta 5</option>
+        </select>
+        <br>
+      </div>
+      <button id="guardar-usuario" class="action-btn">Guardar</button>
+      <button id="cancelar-usuario" class="action-btn">Cancelar</button>
+    </div>
+  </div>
+
+  <script>
+    const rutas = ["Ruta 1", "Ruta 2", "Ruta 3", "Ruta 4", "Ruta 5"];
+    let editIndex = null;
+    let usuarios = [];
+
+    function renderUsuarios() {
+      const tbody = document.getElementById('user-list');
+      tbody.innerHTML = '';
+      usuarios.forEach((u, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${u.username}</td>
+          <td>${u.rol}</td>
+          <td>
+            <button class="action-btn edit-btn" data-idx="${idx}">Editar</button>
+            <button class="action-btn delete-btn" data-idx="${idx}">Eliminar</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function showModal(modo, usuario = {}) {
+      document.getElementById('user-modal').style.display = 'flex';
+      document.getElementById('modal-title').textContent = modo === 'add' ? 'Añadir usuario' : 'Editar usuario';
+      document.getElementById('modal-username').value = usuario.username || '';
+      document.getElementById('modal-password').value = '';
+      document.getElementById('modal-username').disabled = modo === 'edit';
+      document.getElementById('modal-rol').value = usuario.rol || 'Administrador';
+      document.getElementById('ruta-container').style.display = (usuario.rol === 'Conductor') ? '' : 'none';
+      document.getElementById('modal-ruta').value = usuario.ruta || rutas[0];
+    }
+
+    document.querySelector('.add-user').addEventListener('click', function() {
+      editIndex = null;
+      showModal('add');
+    });
+
+    document.getElementById('modal-rol').addEventListener('change', function() {
+      if (this.value === "Conductor") {
+        document.getElementById('ruta-container').style.display = '';
+      } else {
+        document.getElementById('ruta-container').style.display = 'none';
+      }
+    });
+
+    document.getElementById('cancelar-usuario').onclick = function() {
+      document.getElementById('user-modal').style.display = 'none';
+    };
+
+    document.getElementById('guardar-usuario').onclick = function() {
+      const username = document.getElementById('modal-username').value.trim();
+      const password = document.getElementById('modal-password').value.trim();
+      const rol = document.getElementById('modal-rol').value;
+      const ruta = document.getElementById('modal-ruta').value;
+
+      if (!username || !password) {
+        alert('Usuario y contraseña son obligatorios.');
+        return;
+      }
+
+      if (editIndex === null) {
+        // Nuevo usuario
+        if (usuarios.some(u => u.username === username)) {
+          alert('Ya existe un usuario con ese nombre.');
+          return;
+        }
+        usuarios.push({
+          username,
+          password, // No se muestra ni se usa, solo ejemplo
+          rol,
+          ruta: rol === 'Conductor' ? ruta : ''
+        });
+      } else {
+        // Editar usuario
+        usuarios[editIndex].rol = rol;
+        usuarios[editIndex].ruta = rol === 'Conductor' ? ruta : '';
+      }
+      renderUsuarios();
+      document.getElementById('user-modal').style.display = 'none';
+    };
+
+    document.getElementById('user-list').addEventListener('click', function(e) {
+      if (e.target.classList.contains('edit-btn')) {
+        editIndex = parseInt(e.target.getAttribute('data-idx'));
+        showModal('edit', usuarios[editIndex]);
+      }
+      if (e.target.classList.contains('delete-btn')) {
+        const idx = parseInt(e.target.getAttribute('data-idx'));
+        if (confirm('¿Seguro que deseas eliminar este usuario?')) {
+          usuarios.splice(idx, 1);
+          renderUsuarios();
+        }
+      }
+    });
+
+    document.getElementById('go-usuarios').onclick = function() {
+      window.location.href = "Usario.html";
+    };
+    document.getElementById('go-config').onclick = function() {
+      window.location.href = "configuracion_de_la_plataforma.html";
+    };
+    document.getElementById('go-reportes').onclick = function() {
+      window.location.href = "reportes_estadisticas.html";
+    };
+
+    // Inicializar tabla vacía
+    renderUsuarios();
+  </script>
+
+  
+</body>
+</html>

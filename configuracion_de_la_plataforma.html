@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuración de la plataforma - UbiX</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <span class="logo">UbiX</span>
+    <a href="#" class="logout">Cerrar sesión</a>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <button class="sidebar-btn" id="go-usuarios">Usuario</button>
+      <button class="sidebar-btn selected" id="go-config">Configuraciones de la plataforma</button>
+      <button class="sidebar-btn" id="go-reportes">Reportes y estadísticas</button>
+    </aside>
+
+    <main class="main-content">
+      <h1>Configuración de la plataforma</h1>
+      <div style="margin: 30px 0;">
+        <span id="estado-plataforma" style="font-weight:bold; color:green;">Plataforma en línea</span>
+        <br><br>
+        <button id="toggle-plataforma" class="add-user">Desactivar plataforma</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let enLinea = true;
+    const estadoSpan = document.getElementById('estado-plataforma');
+    const toggleBtn = document.getElementById('toggle-plataforma');
+
+    toggleBtn.onclick = function() {
+      enLinea = !enLinea;
+      if (enLinea) {
+        estadoSpan.textContent = "Plataforma en línea";
+        estadoSpan.style.color = "green";
+        toggleBtn.textContent = "Desactivar plataforma";
+      } else {
+        estadoSpan.textContent = "Plataforma fuera de línea";
+        estadoSpan.style.color = "red";
+        toggleBtn.textContent = "Activar plataforma";
+      }
+    };
+
+    document.getElementById('go-usuarios').onclick = function() {
+      window.location.href = "Usuario.html";
+    };
+    document.getElementById('go-config').onclick = function() {
+      window.location.href = "configuracion_de_la_plataforma.html";
+    };
+    document.getElementById('go-reportes').onclick = function() {
+      window.location.href = "reportes_estadisticas.html";
+    };
+  </script>
+</body>
+</html>

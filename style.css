@@ -1,0 +1,172 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+.header {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.logout {
+  text-decoration: none;
+  color: #666;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #efefef;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-btn.selected {
+  background-color: #dcdcdc;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: white;
+}
+
+.add-user {
+  background-color: #54c1ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.user-table th, .user-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.action-btn {
+  background-color: #54c1ff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    box-shadow: none;
+    padding: 0;
+  }
+  .sidebar-btn {
+    flex: 1 1 auto;
+    margin: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    font-size: 14px;
+    padding: 10px 0;
+  }
+  .sidebar-btn.selected {
+    background: #dcdcdc;
+  }
+  .main-content {
+    padding: 10px;
+  }
+  .user-table th, .user-table td {
+    padding: 6px;
+    font-size: 13px;
+  }
+  .add-user {
+    width: 100%;
+    margin: 10px 0 10px 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-content h1, .main-content h2 {
+    font-size: 18px;
+  }
+  .user-table, .user-table thead, .user-table tbody, .user-table th, .user-table td, .user-table tr {
+    display: block;
+    width: 100%;
+  }
+  .user-table thead {
+    display: none;
+  }
+  .user-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fafafa;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .user-table td {
+    border: none;
+    padding: 8px 10px;
+    position: relative;
+    text-align: left;
+  }
+  .user-table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+    color: #666;
+    font-size: 12px;
+  }
+  .add-user {
+    width: 100%;
+    font-size: 16px;
+  }
+  .logo {
+    font-size: 16px;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}

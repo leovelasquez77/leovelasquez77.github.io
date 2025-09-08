@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reportes y Estadísticas - UbiX</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Responsive design */
+    @media (max-width: 800px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        box-shadow: none;
+        padding: 0;
+      }
+      .sidebar-btn {
+        flex: 1 1 auto;
+        margin: 0;
+        border-radius: 0;
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        font-size: 14px;
+        padding: 10px 0;
+      }
+      .sidebar-btn.selected {
+        background: #dcdcdc;
+      }
+      .main-content {
+        padding: 10px;
+      }
+      section {
+        margin-bottom: 20px !important;
+      }
+    }
+    @media (max-width: 500px) {
+      .main-content h1, .main-content h2 {
+        font-size: 18px;
+      }
+      ul, li {
+        font-size: 14px;
+      }
+      .logo {
+        font-size: 16px;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <span class="logo">UbiX</span>
+    <a href="#" class="logout" id="cerrar-sesion">Cerrar sesión</a>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <button class="sidebar-btn" id="go-usuarios">Usuario</button>
+      <button class="sidebar-btn" id="go-config">Configuraciones de la plataforma</button>
+      <button class="sidebar-btn selected" id="go-reportes">Reportes y estadísticas</button>
+      <!-- Eliminado el botón de notificaciones -->
+    </aside>
+
+    <main class="main-content">
+      <h1>Reportes y Estadísticas</h1>
+
+      <section style="margin-bottom:30px;">
+        <h2>Notificaciones</h2>
+        <ul id="notificaciones">
+          <li>Nuevo usuario creado: juanperez</li>
+          <li>Nuevo usuario creado: maria2024</li>
+          <!-- Puedes agregar dinámicamente más notificaciones aquí -->
+        </ul>
+      </section>
+
+      <section style="margin-bottom:30px;">
+        <h2>Reportes de conductores</h2>
+        <ul id="reportes">
+          <li>Conductor <b>carlosg</b> se desvió de la ruta asignada (Ruta 2) el 2024-06-10 09:15</li>
+          <li>Conductor <b>luisr</b> se desvió de la ruta asignada (Ruta 4) el 2024-06-10 10:22</li>
+          <!-- Puedes agregar dinámicamente más reportes aquí -->
+        </ul>
+      </section>
+
+      <section>
+        <h2>Estadísticas globales</h2>
+        <ul id="estadisticas">
+          <li>Usuarios conectados: <b>12</b></li>
+          <li>Conductores activos: <b>5</b></li>
+          <li>Administradores activos: <b>2</b></li>
+          <li>Usuarios totales: <b>30</b></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('go-usuarios').onclick = function() {
+      window.location.href = "Usuario.html";
+    };
+    document.getElementById('go-config').onclick = function() {
+      window.location.href = "configuracion_de_la_plataforma.html";
+    };
+    document.getElementById('go-reportes').onclick = function() {
+      window.location.href = "reportes_estadisticas.html";
+    };
+    // Botón cerrar sesión funcional
+    document.getElementById('cerrar-sesion').onclick = function(e) {
+      e.preventDefault();
+      window.location.href = "index.html";
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ubix</title>
+
+  <!-- Estilos de Leaflet y del proyecto -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="estilodelbueno.css" />
+
+  <!-- Scripts de Leaflet y Routing Machine -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+</head>
+<body>
+  <div id="map"></div>
+
+  <button class="menu-toggle" id="menuToggle">☰</button>
+
+  <div class="content" id="sidePanel">
+    <h1>Rutas en León</h1>
+    <input type="text" id="searchBox" placeholder="Buscar ubicación...">
+    <button id="routeBtn">Trazar Ruta</button>
+    <button id="saveRouteBtn">Guardar Ruta</button>
+    <select id="savedRoutes"></select>
+    <button id="loadRouteBtn">Cargar Ruta</button>
+    <button id="clearRouteBtn">Eliminar Ruta</button>
+    <button id="simulateDriverBtn">Simular Conductor</button>
+    <button id="settingsBtn" style="background-color: #72c2e7;">Configuraciones</button>
+  </div>
+  <script type="module" src="javadelbueno.js"></script>
+  
+</body>
+</html>

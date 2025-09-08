@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ubix Usuario</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="Usuario.css" />
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+
+  <script type="module" src="Usuario.js"></script>
+</head>
+<body>
+
+  <div id="map"></div>
+  <div id="topPanel">
+    <select id="routeSelector">
+      <option value="">Selecciona ruta</option>
+    </select>
+    <button id="addFavoriteBtn">
+      <i class="fas fa-star"></i>
+    </button>
+  </div>
+
+  <div class="content" id="bottomPanel">
+    <h2><i class="fas fa-heart"></i> Rutas Favoritas</h2>
+    <select id="favoriteRoutes"></select>
+    <button id="loadFavoriteBtn"><i class="fas fa-map"></i> Ver Ruta</button>
+    <button id="clearFavoritesBtn"><i class="fas fa-trash"></i> Borrar de favoritos</button>
+    <button id="closeSessionBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+    <div id="driverLocationInfo" style="margin-top: 10px; font-size: 14px; color: #555;"></div>
+  </div>
+
+</body>
+</html>

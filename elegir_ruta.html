@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="elegir_ruta.css">
+</head>
+<body>
+
+  <div class="container">
+    <label for="selectorRutas">Seleccionar ruta</label>
+    <select id="selectorRutas" onchange="mostrarInfoRuta()">
+      <option value="">-- Selecciona una ruta --</option>
+      <option value="Guadalupe">1. Guadalupe</option>
+      <option value="Repartos">2. Los Repartos</option>
+      <option value="Soberana">3. Vía Soberana</option>
+      <option value="Terminal">4. La Terminal</option>
+      <option value="Posada">5. Posada el Sol</option>
+      <option value="Arrocera">6. Arrocera</option>
+      <option value="Jeronimo">7. San Jerónimo</option>
+      <option value="SanJuan">8. San Juan</option>
+    </select>
+
+    <div class="infoRuta" id="infoRuta"></div>
+
+    <button  class="btn-continuar" id="go-prueba"  onclick="continuar()"  href="prueba.html" >Continuar</button>
+  </div>
+
+  <script>
+    function mostrarInfoRuta() {
+      const valor = document.getElementById("selectorRutas").value;
+      const info = document.getElementById("infoRuta");
+      const boton = document.getElementById("btnContinuar");
+
+      if (valor) {
+        info.textContent = `Has seleccionado la ruta: ${valor}`;
+        boton.disabled = false;
+      } else {
+        info.textContent = "";
+        boton.disabled = true;
+      }
+    }
+
+    function continuar() {
+      const seleccion = document.getElementById("selectorRutas").value;
+      alert(`Continuando con la ruta: ${seleccion}`);
+      // Redirección o acción adicional aquí si lo necesitas
+    }
+    function validarCampo() {
+      const campo = document.getElementById('miCampo').value.trim();
+
+      if (campo === '') {
+        alert('El campo no puede estar vacío');
+        return false;  // Evita que el formulario se envíe
+      }
+
+      return true;  // Permite enviar el formulario
+    }
+     document.getElementById('go-prueba').onclick = function() {
+      window.location.href = "prueba.html";
+    };
+  </script>
+
+</body>
+</html>

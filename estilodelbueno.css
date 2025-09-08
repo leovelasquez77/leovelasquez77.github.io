@@ -1,0 +1,166 @@
+html, body {
+  margin: 0; /* Elimina el margen predeterminado del navegador para html y body */
+  padding: 0; /* Elimina el relleno (padding) predeterminado */
+  height: 100%; /* Hace que html y body ocupen el 100% de la altura de la ventana */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Define una lista de fuentes para el texto */
+  overflow: hidden; /* Oculta cualquier contenido que se desborde fuera de la ventana */
+}
+
+#map {
+  /* Establece la altura del elemento al 100% del contenedor padre */
+  height: 100%;
+  
+  /* Establece el ancho del elemento al 100% del contenedor padre */
+  width: 100%;
+  
+  /* Posiciona el elemento de forma absoluta respecto a su contenedor más cercano con posición relativa */
+  position: absolute;
+  
+  /* Coloca el borde superior del elemento alineado con el borde superior del contenedor */
+  top: 0;
+  
+  /* Coloca el borde izquierdo del elemento alineado con el borde izquierdo del contenedor */
+  left: 0;
+}
+
+.content {
+  position: fixed; /* Fija el elemento respecto a la ventana del navegador, permanece visible aunque se haga scroll */
+  top: 0; /* Coloca el borde superior del elemento en la parte superior de la ventana */
+  right: 0; /* Coloca el borde derecho del elemento en el borde derecho de la ventana */
+  width: 320px; /* Ancho fijo de 320 píxeles */
+  max-width: 70%; /* El ancho máximo será el 90% del ancho de la ventana, útil para pantallas pequeñas */
+  height: 100%; /* Altura del 100% de la ventana */
+  background-color: #eff2f3; /* Color de fondo azul claro */
+  padding: 20px; /* Espacio interno de 20 píxeles en todos los lados */
+  box-shadow: -2px 0 10px rgba(0,0,0,0.3); /* Sombra a la izquierda para dar efecto de profundidad */
+  z-index: 1000; /* Asegura que el panel esté por encima de otros elementos */
+  overflow-y: auto; /* Si el contenido es muy largo, agrega scroll vertical */
+  transform: translateX(100%); /* Mueve el panel completamente fuera de la pantalla hacia la derecha (oculto por defecto) */
+  transition: transform 0.3s ease-in-out; /* Anima el movimiento del panel cuando cambia la propiedad transform */
+}
+
+/* Muestra el contenido desplazado cuando está abierto */
+.content.open {
+  transform: translateX(0);
+}
+
+
+
+/* Botón flotante para alternar el menú */
+.menu-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1100;
+  background-color: #72C2E7;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Título principal centrado */
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Estilos generales para formularios */
+input, button, select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Efectos visuales para los botones */
+button {
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+/* Efecto al presionar el botón */
+button:active {
+  transform: scale(0.97);
+}
+
+/* Colores personalizados para cada botón según su función */
+#routeBtn { background-color: #547dbf; color: #ffffff; }
+#saveRouteBtn { background-color: #5ed179; color: white; }
+#loadRouteBtn { background-color: #72c2e7; color: #ffffff; }
+#clearRouteBtn { background-color: #dc3545; color: white; }
+#simulateDriverBtn { background-color: #ff8c00; color: white; }
+#settingsBtn { background-color: #72c2e7; color: white; }
+
+
+/* Efecto hover para todos los botones */
+button:hover {
+  opacity: 0.9;
+}
+
+/* RESPONSIVE: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .content {
+    width: 95vw;
+    max-width: 95vw;
+    left: 2.5vw;
+    right: 2.5vw;
+    padding: 16px;
+    box-shadow: -1px 0 6px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    height: 96vh;
+  }
+
+  h1 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+
+  input, button, select {
+    font-size: 0.98rem;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+
+  .menu-toggle {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    bottom: 16px;
+    right: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  }
+}
+
+/* Personalización de rutas en Leaflet */
+/* Oculta el contenedor de rutas */
+.leaflet-routing-container {
+  display: none;
+}
+/* Cambia el color de la línea de la ruta alternativa */
+.leaflet-routing-alternatives-path {
+  stroke: #72C2E7 !important;
+  opacity: 0.9 !important;
+}
+/* Asegura el color en la línea interactiva */
+.leaflet-interactive {
+  stroke: #72c2e7 !important;
+}
+ 
+#simProgressBar {
+  transition: width 0.3s ease-in-out;
+}
+
+

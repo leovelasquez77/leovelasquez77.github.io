@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Panel superior */
+#topPanel {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  background: #ffffffec;
+  padding: 10px 16px;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 95vw;
+}
+
+#topPanel select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#topPanel button {
+  background-color: #72c2e7;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#topPanel button:hover {
+  background-color: #72c2e7;
+}
+
+/* Panel inferior */
+.content {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.content.hide {
+  transform: translateX(-50%) translateY(100%);
+  transition: transform 0.3s ease-in;
+}
+
+.content h2 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.content select, .content button {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.content select {
+  border: 1px solid #ccc;
+}
+
+.content button {
+  border: none;
+  background-color: #28a745;
+  color: white;
+}
+
+.content button:hover {
+  background-color: #218838;
+}
+
+#loadFavoriteBtn {
+  background-color: #72c2e7;
+}
+
+#loadFavoriteBtn:hover {
+  background-color: #72c2e7;
+}
+
+#closeSessionBtn {
+  background-color: #dc3545;
+}

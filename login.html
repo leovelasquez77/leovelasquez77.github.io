@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Signup UbiX</title>
+  <link rel="stylesheet" href="login.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="container">
+    <!-- LOGIN -->
+    <div class="form-box login">
+      <form id="loginForm">
+        <h1>UbiX</h1>
+        <div class="input-box">
+          <input type="email" placeholder="Correo electrónico" required id="loginEmail">
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" placeholder="Contraseña" required id="loginPassword">
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="btn">Iniciar sesión</button><br><br>
+        <div class="social-icons">
+          <a href="#"><i class='bx bxl-google'></i></a>
+          <a href="#"><i class='bx bxl-facebook'></i></a>
+          <a href="#"><i class='bx bxl-github'></i></a>
+          <a href="#"><i class='bx bxl-linkedin'></i></a>
+        </div>
+      </form>
+    </div>
+    <script type="module">
+      import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+      document.getElementById("registerForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
+        const nombre = document.querySelector("#registerForm input[type='text']").value;
+
+        try {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          await addDoc(collection(db, "Usuarios"), {
+            Correo: email,
+            Nombre: nombre,
+            Roll: "pasajero"
+          });
+          alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+          container.classList.remove("active");
+        } catch (error) {
+          alert("Error al registrarse: " + error.message);
+        }
+      });
+    </script>
+    <!-- REGISTRO -->
+    <div class="form-box register">
+      <form id="registerForm">
+        <h1>Registrarse</h1>
+        <div class="input-box">
+          <input type="text" placeholder="Nombre completo" required>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="email" placeholder="Correo electrónico" required id="registerEmail">
+          <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" placeholder="Contraseña" required id="registerPassword">
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="btn">Registrarse</button><br><br>
+        <div class="social-icons">
+          <a href="#"><i class='bx bxl-google'></i></a>
+          <a href="#"><i class='bx bxl-facebook'></i></a>
+          <a href="#"><i class='bx bxl-github'></i></a>
+          <a href="#"><i class='bx bxl-linkedin'></i></a>
+        </div>
+      </form>
+    </div>
+
+    <!-- PANEL DE CAMBIO -->
+    <div class="toggle-box">
+      <div class="toggle-panel toggle-left">
+        <img src="Gemini_Generated_Image_j7z70tj7z70tj7z7-removebg-preview.png" alt="logo" width="200px" height="200px">
+        <h2>¡Bienvenido a UbiX!</h2>
+        <p>¡La ruta en tus manos!</p>
+        <button class="btn register-btn">Registrarse</button>
+      </div>
+
+      <div class="toggle-panel toggle-right">
+        <img src="Gemini_Generated_Image_j7z70tj7z70tj7z7-removebg-preview.png" alt="logo" width="200px" height="200px">
+        <h2>¡Bienvenido a UbiX!</h2>
+        <p>¡La ruta en tus manos!</p>
+        <button class="btn login-btn">Iniciar sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT: TOGGLE -->
+  <script>
+    const loginBtn = document.querySelector(".login-btn");
+    const registerBtn = document.querySelector(".register-btn");
+    const container = document.querySelector(".container");
+
+    registerBtn.addEventListener("click", () => {
+      container.classList.add("active");
+    });
+
+    loginBtn.addEventListener("click", () => {
+      container.classList.remove("active");
+    });
+  </script>
+
+  <!-- SCRIPT: FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCBz2s5jDGtbNNpEQSVeqbkD85m6dTRWB0",
+      authDomain: "ubix-81203.firebaseapp.com",
+      projectId: "ubix-81203",
+      storageBucket: "ubix-81203.appspot.com",
+      messagingSenderId: "247852658625",
+      appId: "1:247852658625:web:5dd6d4a09ca717267b0940",
+      measurementId: "G-2Z859ZVS29"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore();
+
+    // LOGIN
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = "UsuarioUbix.html";
+      } catch (error) {
+      alert("Error al iniciar sesión: " + (error.message || "Intenta de nuevo."));
+      }
+    });
+
+    // REGISTRO
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+      const nombre = document.querySelector("#registerForm input[type='text']").value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await addDoc(collection(db, "Usuarios"), {
+          Correo: email,
+          Nombre: nombre,
+          Roll: "pasajero"
+        });
+        alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+        container.classList.remove("active"); // Vuelve a la vista de login
+      } catch (error) {
+        alert("Error al registrarse: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
